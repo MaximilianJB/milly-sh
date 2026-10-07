@@ -1,159 +1,65 @@
-# Turborepo starter
+# MILLYSH
 
-This Turborepo starter is maintained by the Turborepo core team.
+MILLYSH is my personal operating system on the internet: part portfolio, part software laboratory, and part home for whatever I want to build next.
 
-## Using this example
+It exists to make coding fun again. This repository gives me a place to learn unfamiliar technologies, experiment without needing a business case, and collect the projects that come out of that work.
 
-Run the following command:
+The public site should become a living portfolio rather than a gallery I maintain by hand. As I add projects, they should naturally appear with their purpose, status, technology, and links. Behind that public surface, MILLYSH can grow into a private set of tools and workflows built specifically for me.
 
-```sh
-npx create-turbo@latest
+## Principles
+
+- **Build for curiosity.** Learning and enjoyment are valid reasons to add something.
+- **Keep the center stable and the edges experimental.** The main site connects everything, while side projects can choose their own technologies and deployment schedules.
+- **Prefer working vertical slices.** Prove a small idea from interface to deployment before building a generalized platform around it.
+- **Extract patterns after they repeat.** Shared packages should represent knowledge earned from real projects, not abstractions invented in advance.
+- **Make public and private boundaries explicit.** A personal operating system can have a public portfolio without exposing its private controls or data.
+- **Let the portfolio emerge from the work.** Projects register with MILLYSH; the site presents them.
+
+## Architectural direction
+
+MILLYSH is a monorepo with a central home site, independently deployable projects, shared building blocks, and infrastructure expressed as code.
+
+```text
+apps/
+  home/              # The public milly.sh experience
+  <project>/         # Independently deployable experiments
+
+packages/
+  ui/                # Shared components
+  design-tokens/     # Color, typography, spacing, and motion
+  project-registry/  # Metadata used to present projects
+  tooling/           # Shared development conventions
+
+infra/               # Domains, deployments, and cloud resources
 ```
 
-## What's inside?
+This is a direction, not a requirement that every directory exist immediately. The repository should grow in response to working software.
 
-This Turborepo includes the following packages/apps:
+Side projects should generally behave like independent buildings on the same property. They can live on their own subdomains, deploy separately, and use different technologies without forcing the main site to change with them.
 
-### Apps and Packages
+## Technology playground
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+The current technologies under consideration include:
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- **StyleX** for design tokens and the component library
+- **TanStack Start** for the main site
+- **SST** for infrastructure as code
+- **Cloudflare** for hosting and related infrastructure
 
-### Utilities
+These choices are experiments, not the identity of the project. A tool stays when using it makes MILLYSH more capable, understandable, or enjoyable.
 
-This Turborepo has some additional tools already setup for you:
+## First milestone
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+The first milestone is a walking skeleton: the smallest complete version that proves the major parts can work together.
 
-### Build
+1. Create a real `milly.sh` homepage.
+2. Establish a small visual language with StyleX.
+3. Define one project in a project registry and render it on the homepage.
+4. Deploy the homepage to Cloudflare.
+5. Document what should be shared or automated before adding another project.
 
-To build all apps and packages, run the following command:
+The goal is not to design the final platform. The goal is to make one complete path work, learn from it, and let that experience shape the architecture.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+## Development
 
-```sh
-cd my-turborepo
-turbo build
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+This repository uses pnpm workspaces and Turborepo. Repository-specific commands and conventions live in [`AGENTS.md`](./AGENTS.md).
